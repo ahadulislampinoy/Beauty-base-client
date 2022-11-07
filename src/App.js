@@ -1,7 +1,10 @@
+import { RouterProvider } from "react-router-dom";
+import { router } from "./Routes/Routes";
+
 function App() {
   return (
     <div>
-      <h1>hot toast, firebase and recat router dom installed</h1>
+      <RouterProvider router={router} />
     </div>
   );
 }
