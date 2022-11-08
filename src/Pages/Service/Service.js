@@ -17,7 +17,7 @@ const Service = () => {
             <h1 className="text-4xl font-bold leading-tight mb-5 capitalize">
               {name}
             </h1>
-            <p className="text-xl leading-8">{description}</p>
+            <p className="text-lg sm:text-xl sm:leading-8">{description}</p>
           </div>
           <div className="lg:w-2/6 order-2">
             <img src={img} alt="" className="rounded service-img" />
