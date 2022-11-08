@@ -2,18 +2,17 @@ import React, { useEffect, useState } from "react";
 import { MdArrowRight } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-const Services = () => {
+const AllServices = () => {
   const [services, setServices] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/services?limit=3`)
+    fetch(`http://localhost:5000/services`)
       .then((response) => response.json())
       .then((data) => setServices(data));
   }, []);
-
   return (
-    <div className="text-center">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 p-6 sm:p-10 text-start">
+    <div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 p-6 sm:p-10 py-8">
         {services.map((service) => (
           <div
             key={service._id}
@@ -53,14 +52,8 @@ const Services = () => {
           </div>
         ))}
       </div>
-      <Link
-        to="/services"
-        className="px-8 py-3 inline-block mb-8 mt-4 font-semibold border-2 border-pink-300 rounded-lg bg-pink-100 hover:bg-pink-200 transition text-pink-700"
-      >
-        Show all
-      </Link>
     </div>
   );
 };
 
-export default Services;
+export default AllServices;
