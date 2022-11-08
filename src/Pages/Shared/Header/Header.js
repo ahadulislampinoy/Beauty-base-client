@@ -10,11 +10,11 @@ const Header = () => {
   return (
     <div>
       <nav className="w-full bg-gray-50 shadow">
-        <div className="justify-between px-8 lg:px-14 py-3 mx-auto md:items-center lg:grid grid-cols-2">
-          <div className="flex items-center justify-between py-3">
+        <div className="justify-between px-8 lg:px-14 py-1 mx-auto md:items-center lg:grid grid-cols-2">
+          <div className="flex items-center justify-between py-2">
             <Link to="/" className="flex items-center ">
               <img src={logo} alt="" className="w-1/12" />
-              <h2 className="text-2xl pl-3 font-bold text-gray-700">
+              <h2 className="text-2xl pl-3 font-semibold text-gray-700">
                 Beauty Base
               </h2>
             </Link>
