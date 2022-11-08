@@ -1,11 +1,24 @@
 import { Transition } from "@headlessui/react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import toast from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/logo.png";
+import { AuthContext } from "../../../Contexts/AuthProvider";
 import "./Header.css";
 
 const Header = () => {
   const [navbar, setNavbar] = useState(false);
+  const { user, userSignOut } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    userSignOut()
+      .then((result) => {
+        toast.success("Logout successful");
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+  };
 
   return (
     <div>
@@ -45,11 +58,7 @@ const Header = () => {
                     stroke="currentColor"
                     strokeWidth={2}
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinecap="round"
-                      d="M4 6h16M4 12h16M4 18h16"
-                    />
+                    <path strokeLinecap="round" d="M4 6h16M4 12h16M4 18h16" />
                   </svg>
                 )}
               </button>
@@ -72,15 +81,23 @@ const Header = () => {
                   <li className="text-gray-700 hover:text-pink-500">
                     <NavLink to="/services">Services</NavLink>
                   </li>
-                  <li className="text-gray-700 hover:text-pink-500">
-                    <NavLink to="/reviews">My reviews</NavLink>
-                  </li>
-                  <li className="text-gray-700 hover:text-pink-500">
-                    <NavLink to="/addservice">Add service</NavLink>
-                  </li>
-                  <li className="text-gray-700 border-b-2 border-pink-400 shadow-lg rounded px-4 py-2 hover:text-pink-500">
-                    <NavLink to="/login">Login</NavLink>
-                  </li>
+                  {user?.email ? (
+                    <>
+                      <li className="text-gray-700 hover:text-pink-500">
+                        <NavLink to="/myreviews">My reviews</NavLink>
+                      </li>
+                      <li className="text-gray-700 hover:text-pink-500">
+                        <NavLink to="/addservice">Add service</NavLink>
+                      </li>
+                      <li className="text-gray-700 border border-pink-500 custom-shadow  rounded px-4 py-1 hover:text-pink-500">
+                        <button onClick={handleLogOut}>Logout</button>
+                      </li>
+                    </>
+                  ) : (
+                    <li className="text-gray-700 border border-pink-500 custom-shadow rounded px-4 py-1 hover:text-pink-500">
+                      <NavLink to="/login">Login</NavLink>
+                    </li>
+                  )}
                 </ul>
               </div>
             </div>
@@ -112,15 +129,23 @@ const Header = () => {
                   <li className="text-gray-700 hover:text-pink-500">
                     <NavLink to="/services">Services</NavLink>
                   </li>
-                  <li className="text-gray-700 hover:text-pink-500">
-                    <NavLink to="/reviews">My reviews</NavLink>
-                  </li>
-                  <li className="text-gray-700 hover:text-pink-500">
-                    <NavLink to="/addservice">Add service</NavLink>
-                  </li>
-                  <li className="text-gray-700 border-b-2 border-pink-400 shadow-lg rounded px-4 py-2 hover:text-pink-500">
-                    <NavLink to="/login">Login</NavLink>
-                  </li>
+                  {user?.email ? (
+                    <>
+                      <li className="text-gray-700 hover:text-pink-500">
+                        <NavLink to="/myreviews">My reviews</NavLink>
+                      </li>
+                      <li className="text-gray-700 hover:text-pink-500">
+                        <NavLink to="/addservice">Add service</NavLink>
+                      </li>
+                      <li className="text-gray-700 border border-pink-500 custom-shadow  rounded px-4 py-1 hover:text-pink-500">
+                        <button onClick={handleLogOut}>Logout</button>
+                      </li>
+                    </>
+                  ) : (
+                    <li className="text-gray-700 border border-pink-500 custom-shadow rounded px-4 py-1 hover:text-pink-500">
+                      <NavLink to="/login">Login</NavLink>
+                    </li>
+                  )}
                 </ul>
               </div>
             </div>

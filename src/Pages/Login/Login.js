@@ -1,80 +1,130 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import toast from "react-hot-toast";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Contexts/AuthProvider";
+import useTitle from "../../hooks/useTitle";
 
 const Login = () => {
+  useTitle("Login");
+  const { userLogIn, googleSignIn } = useContext(AuthContext);
+  const [error, setError] = useState();
+  let navigate = useNavigate();
+  let location = useLocation();
+  let from = location.state?.from?.pathname || "/";
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    userLogIn(email, password)
+      .then((result) => {
+        toast.success("Login successful");
+        form.reset();
+        setError("");
+        navigate(from, { replace: true });
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
+  };
+
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then((result) => {
+        setError("");
+        toast.success("Login successful");
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
+  };
+
   return (
     <div>
       <section className="bg-white">
         <div className="container flex items-center justify-center min-h-screen px-6 mx-auto">
-          <form className="w-full max-w-md">
+          <div className="w-full max-w-md">
             <h1 className="text-3xl font-semibold text-gray-800 capitalize">
               Login
             </h1>
 
-            <div className="relative flex items-center mt-8">
-              <span className="absolute">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6 mx-3 text-gray-300"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  />
-                </svg>
-              </span>
+            <form onSubmit={handleSubmit}>
+              <div className="relative flex items-center mt-8">
+                <span className="absolute">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-6 h-6 mx-3 text-gray-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                </span>
 
-              <input
-                type="email"
-                className="block w-full py-3 text-gray-700 bg-white border rounded-md px-11  focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                placeholder="Email address"
-              />
-            </div>
+                <input
+                  type="email"
+                  required
+                  name="email"
+                  className="block w-full py-3 text-gray-700 bg-white border rounded-md px-11  focus:border-pink-400 focus:ring-pink-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                  placeholder="Email address"
+                />
+              </div>
 
-            <div className="relative flex items-center mt-4">
-              <span className="absolute">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6 mx-3 text-gray-300"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                  />
-                </svg>
-              </span>
+              <div className="relative flex items-center mt-4">
+                <span className="absolute">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-6 h-6 mx-3 text-gray-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                    />
+                  </svg>
+                </span>
 
-              <input
-                type="password"
-                className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-md  focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                placeholder="Password"
-              />
-            </div>
-
-            <div className="mt-6">
-              <button className="w-full px-6 py-3 text-base font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                <input
+                  type="password"
+                  required
+                  name="password"
+                  className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-md  focus:border-pink-400 focus:ring-pink-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                  placeholder="Password"
+                />
+              </div>
+              <p className="text-base mt-1 text-rose-600">
+                {error ? error : ""}
+              </p>
+              <button
+                className="w-full px-6 py-3 mt-6 text-base font-medium tracking-wide text-white capitalize transition-colors duration-300 transform 
+              bg-pink-600 rounded-md hover:bg-pink-500 focus:outline-none focus:ring focus:ring-pink-300 focus:ring-opacity-50"
+              >
                 Login
               </button>
+            </form>
 
+            <div className="mt-3">
               <div className="flex items-center w-full my-4">
                 <hr className="w-full text-gray-600" />
                 <p className="px-3 text-gray-600">OR</p>
                 <hr className="w-full text-gray-600" />
               </div>
 
-              <a
-                href="#"
-                className="flex items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg  hover:bg-gray-50"
+              <button
+                onClick={handleGoogleSignIn}
+                className="flex items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg  hover:bg-gray-50 w-full"
               >
                 <svg className="w-6 h-6 mx-2" viewBox="0 0 40 40">
                   <path
@@ -96,18 +146,18 @@ const Login = () => {
                 </svg>
 
                 <span className="mx-2">Login with Google</span>
-              </a>
+              </button>
 
               <div className="mt-6 text-center ">
                 <Link
                   to="/signup"
-                  className="text-sm text-blue-500 hover:underline"
+                  className="text-sm text-pink-500 hover:underline"
                 >
                   Don’t have an account yet? Sign up
                 </Link>
               </div>
             </div>
-          </form>
+          </div>
         </div>
       </section>
     </div>

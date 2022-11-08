@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { MdArrowRight } from "react-icons/md";
 import { Link } from "react-router-dom";
+import useTitle from "../../hooks/useTitle";
 
 const AllServices = () => {
+  useTitle("Services");
   const [services, setServices] = useState([]);
 
   useEffect(() => {
@@ -26,8 +28,8 @@ const AllServices = () => {
               />
             </div>
             <div className="mt-1 p-2">
-              <h2 className="text-slate-700">{service.name}</h2>
-              <p className="mt-2 text-sm text-slate-400">
+              <h2 className="text-lg text-gray-800">{service.name}</h2>
+              <p className="mt-2 text-sm text-gray-500">
                 {service.description.slice(0, 100) + "..."}
               </p>
 

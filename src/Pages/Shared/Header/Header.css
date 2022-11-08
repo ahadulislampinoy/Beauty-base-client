@@ -1,3 +1,6 @@
 .active {
-  color: #ec4899 !important;
+  color: rgb(236, 72, 153) !important;
+}
+.custom-shadow {
+  box-shadow: rgba(236, 72, 153, 0.6) -5px 5px;
 }

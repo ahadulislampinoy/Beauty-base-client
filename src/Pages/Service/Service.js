@@ -1,14 +1,17 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
+import useTitle from "../../hooks/useTitle";
+import Review from "../Review/Review";
 import "./Sevice.css";
 
 const Service = () => {
   const service = useLoaderData();
   const { name, img, price, description } = service;
+  useTitle(name);
 
   return (
     <div>
-      <div className="p-6 sm:p-10 py-10">
+      <div className="p-6 sm:p-10 sm:pb-16">
         <div className="lg:flex justify-between items-center">
           <div className="lg:w-6/12 lg:p-0 px-2 py-7 text-gray-800">
             <h1 className="text-5xl lg:text-6xl my-6 drop-shadow-md font-bold text-pink-500">
@@ -24,6 +27,8 @@ const Service = () => {
           </div>
         </div>
       </div>
+      <hr className="bg-gray-700 w-full mx-auto h-[1px] lg:w-2/5 hidden lg:block" />
+      <Review />
     </div>
   );
 };
