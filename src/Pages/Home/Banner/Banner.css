@@ -3,15 +3,3 @@
   background-repeat: no-repeat !important;
   background-size: cover !important;
 }
-
-@media screen and (max-width: 389px) {
-  .heading-break {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 306px) {
-  .heading-padding {
-    padding-top: 0 !important;
-  }
-}
