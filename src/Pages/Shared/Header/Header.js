@@ -81,6 +81,9 @@ const Header = () => {
                   <li className="text-gray-700 hover:text-pink-500">
                     <NavLink to="/services">Services</NavLink>
                   </li>
+                  <li className="text-gray-700 hover:text-pink-500">
+                    <NavLink to="/blog">Blog</NavLink>
+                  </li>
                   {user?.email ? (
                     <>
                       <li className="text-gray-700 hover:text-pink-500">
@@ -128,6 +131,9 @@ const Header = () => {
                   </li>
                   <li className="text-gray-700 hover:text-pink-500">
                     <NavLink to="/services">Services</NavLink>
+                  </li>
+                  <li className="text-gray-700 hover:text-pink-500">
+                    <NavLink to="/blog">Blog</NavLink>
                   </li>
                   {user?.email ? (
                     <>

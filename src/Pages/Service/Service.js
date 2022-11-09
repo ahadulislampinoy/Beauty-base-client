@@ -6,7 +6,7 @@ import "./Sevice.css";
 
 const Service = () => {
   const service = useLoaderData();
-  const { name, img, price, description } = service;
+  const { _id, name, img, price, description } = service;
   useTitle(name);
 
   return (
@@ -22,13 +22,13 @@ const Service = () => {
             </h1>
             <p className="text-lg sm:text-xl sm:leading-8">{description}</p>
           </div>
-          <div className="lg:w-2/6 order-2">
+          <div className="lg:w-2/6 order-2 flex justify-center">
             <img src={img} alt="" className="rounded service-img" />
           </div>
         </div>
       </div>
       <hr className="bg-gray-700 w-full mx-auto h-[1px] lg:w-2/5 hidden lg:block" />
-      <Review />
+      <Review id={_id} />
     </div>
   );
 };

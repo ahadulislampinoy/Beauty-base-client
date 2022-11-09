@@ -28,8 +28,8 @@ const AllServices = () => {
               />
             </div>
             <div className="mt-1 p-2">
-              <h2 className="text-lg text-gray-800">{service.name}</h2>
-              <p className="mt-2 text-sm text-gray-500">
+              <h2 className="text-xl text-gray-800">{service.name}</h2>
+              <p className="mt-2 text-base text-gray-500">
                 {service.description.slice(0, 100) + "..."}
               </p>
 
