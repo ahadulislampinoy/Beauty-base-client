@@ -18,7 +18,7 @@ const Review = ({ id }) => {
       feedback,
     };
     // Adding data to database
-    fetch(`http://localhost:5000/reviews`, {
+    fetch(`https://beauty-base-server.vercel.app/reviews`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(review),
@@ -33,7 +33,7 @@ const Review = ({ id }) => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews?serviceId=${id}`)
+    fetch(`https://beauty-base-server.vercel.app/reviews?serviceId=${id}`)
       .then((response) => response.json())
       .then((data) => setReviews(data));
   }, [id, reviews]);
@@ -54,7 +54,12 @@ const Review = ({ id }) => {
           <p className="mt-3 mb-6 font-semibold text-gray-700">
             {user?.email ? "How was your experience?" : ""}
           </p>
-          <form onSubmit={handleFeedback}>
+          <form
+            onSubmit={handleFeedback}
+            onClick={() =>
+              user?.email ? "" : toast.error("To add review, login first")
+            }
+          >
             <label className="sr-only" htmlFor="feedback">
               Feedback
             </label>

@@ -17,7 +17,7 @@ const AddService = () => {
     };
 
     // Adding new service in database
-    fetch(`http://localhost:5000/services`, {
+    fetch(`https://beauty-base-server.vercel.app/services`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(serviceDetails),

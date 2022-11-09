@@ -10,7 +10,7 @@ const MyReviews = () => {
 
   // Get my reviews
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews?email=${user?.email}`)
+    fetch(`https://beauty-base-server.vercel.app/reviews?email=${user?.email}`)
       .then((response) => response.json())
       .then((data) => setReviews(data));
   }, [user?.email, reviews]);
