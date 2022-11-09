@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-import userDefaultImg from "../../assets/reviewrProfile.png";
 import { AuthContext } from "../../Contexts/AuthProvider";
 
 const Review = ({ id }) => {
@@ -81,21 +80,24 @@ const Review = ({ id }) => {
         <p className="mt-8 text-3xl font-heading font-medium drop-shadow-xl shadow-pink-500">
           {reviews.length} reviews
         </p>
-        <div class="grid grid-cols-1 gap-8 mt-16 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
           {reviews.map((review) => (
-            <div className="mt-8">
-              <img
-                alt="Woman"
-                src={review?.userImg ? review.userImg : userDefaultImg}
-                class="mx-auto ring-4 ring-gray-200 h-24 w-24 rounded-full object-cover shadow-xl"
-              />
+            <div class="w-full max-w-md px-8 py-4 mt-16 bg-white rounded-lg shadow-lg shadow-pink-200">
+              <div class="flex justify-center -mt-16 md:justify-end">
+                <img
+                  class="object-cover w-20 h-20 border-2 border-pink-300 rounded-full "
+                  alt="Testimonial avatar"
+                  src={review.userImg}
+                />
+              </div>
 
-              <blockquote class="-mt-6 flex flex-col justify-between rounded-lg pt-12 pb-8 px-5 sm:px-8 text-center shadow-xl shadow-pink-100">
-                <p class="text-xl font-bold text-gray-800">
-                  {review?.username}
-                </p>
-                <p class="mt-3 text-gray-600">{review?.feedback}</p>
-              </blockquote>
+              <h2 class="mt-2 text-2xl font-semibold text-gray-800  md:mt-0">
+                {review.username}
+              </h2>
+
+              <p class="mt-2 text-gray-600">{review.feedback}</p>
+
+              <div class="flex justify-end mt-4"></div>
             </div>
           ))}
         </div>

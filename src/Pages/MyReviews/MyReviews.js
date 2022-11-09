@@ -1,39 +1,29 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../Contexts/AuthProvider";
 import useTitle from "../../hooks/useTitle";
+import MyReviewCards from "./MyReviewCards";
 
 const MyReviews = () => {
   useTitle("My reviews");
+  const { user } = useContext(AuthContext);
   const [reviews, setReviews] = useState([]);
+
+  // Get my reviews
+  useEffect(() => {
+    fetch(`http://localhost:5000/reviews?email=${user?.email}`)
+      .then((response) => response.json())
+      .then((data) => setReviews(data));
+  }, [user?.email]);
 
   return (
     <div>
-      {/* <section className="p-6 sm:p-10 overflow-hidden">
-        <p className="mt-8 text-3xl font-heading font-medium drop-shadow-xl shadow-pink-500">
-          {"reviews.length"} reviews
-        </p>
-        <div class="grid grid-cols-1 gap-8 mt-8 md:grid-cols-2 xl:grid-cols-3">
+      <section className="p-6 sm:p-10 overflow-hidden">
+        <div className="grid grid-cols-1 gap-8 mt-8 lg:grid-cols-2">
           {reviews.map((review) => (
-            <div class="px-12 py-8 transition-colors duration-300 transform border  rounded-xl">
-              <div class="flex flex-col sm:-mx-4 sm:flex-row">
-                <img
-                  class="flex-shrink-0 object-cover w-24 h-24 rounded-full sm:mx-4 ring-4 ring-gray-300"
-                  src={review?.userImg ? review.userImg : userDefaultImg}
-                  alt=""
-                />
-                <div class="mt-4 sm:mx-2 sm:mt-0 flex items-center">
-                  <h1 class="text-xl font-semibold text-gray-700 capitalize">
-                    {review?.username}
-                  </h1>
-                </div>
-              </div>
-
-              <p class="mt-4 text-gray-500 capitalize leading-7">
-                {review?.feedback}
-              </p>
-            </div>
+            <MyReviewCards key={review._id} review={review} />
           ))}
         </div>
-      </section> */}
+      </section>
     </div>
   );
 };
