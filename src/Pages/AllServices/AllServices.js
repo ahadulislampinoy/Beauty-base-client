@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MdArrowRight } from "react-icons/md";
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
 import { Link } from "react-router-dom";
 import useTitle from "../../hooks/useTitle";
 
@@ -21,11 +23,15 @@ const AllServices = () => {
             className="rounded-xl bg-white p-3 shadow-lg shadow-pink-100"
           >
             <div className="overflow-hidden rounded-xl">
-              <img
-                src={service.img}
-                alt="service-img"
-                className="h-96 w-full"
-              />
+              <PhotoProvider>
+                <PhotoView src={service.img}>
+                  <img
+                    src={service.img}
+                    alt="service-img"
+                    className="h-96 w-full"
+                  />
+                </PhotoView>
+              </PhotoProvider>
             </div>
             <div className="mt-1 p-2">
               <h2 className="text-xl text-gray-800">{service.name}</h2>

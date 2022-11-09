@@ -34,6 +34,7 @@ const Login = () => {
     googleSignIn()
       .then((result) => {
         setError("");
+        navigate(from, { replace: true });
         toast.success("Login successful");
       })
       .catch((err) => {
@@ -151,7 +152,7 @@ const Login = () => {
               <div className="mt-6 text-center ">
                 <Link
                   to="/signup"
-                  className="text-sm text-pink-500 hover:underline"
+                  className="text-base text-pink-500 hover:underline"
                 >
                   Don’t have an account yet? Sign up
                 </Link>

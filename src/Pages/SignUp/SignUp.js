@@ -1,14 +1,15 @@
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthProvider";
 import useTitle from "../../hooks/useTitle";
 
 const SignUp = () => {
   useTitle("Signup");
-  const { createUser, updateUserProfile, googleSignIn } =
+  const { createUser, updateUserProfile, googleSignIn, setLoading } =
     useContext(AuthContext);
-  const [error, setError, setLoading] = useState();
+  const [error, setError] = useState();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,18 +22,18 @@ const SignUp = () => {
     // Create User
     createUser(email, password)
       .then((result) => {
-        toast.success("Signup successful");
-        setError("");
         // Update user - under Create user
         updateUserProfile(name, photo)
           .then((result) => {
             setError("");
             form.reset();
+            navigate("/");
             console.log("User update successful");
           })
           .catch((err) => {
             setError(err.message);
           });
+        toast.success("Signup successful");
       })
       .catch((err) => {
         setError(err.message);
@@ -44,6 +45,7 @@ const SignUp = () => {
     googleSignIn()
       .then((result) => {
         setError("");
+        navigate("/");
         toast.success("Signup successful");
       })
       .catch((err) => {
@@ -211,7 +213,7 @@ const SignUp = () => {
               <div className="mt-6 text-center ">
                 <Link
                   to="/login"
-                  className="text-sm text-pink-500 hover:underline"
+                  className="text-base text-pink-500 hover:underline"
                 >
                   Already have an account?
                 </Link>

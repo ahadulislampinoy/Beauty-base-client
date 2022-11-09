@@ -8,21 +8,6 @@ const MyReviews = () => {
   const { user } = useContext(AuthContext);
   const [reviews, setReviews] = useState([]);
 
-  // Deleting review
-  // const hanldleDelete = (id) => {
-  //   fetch(`http://localhost:5000/reviews/${id}`, {
-  //     method: "DELETE",
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       if (data.deletedCount > 0) {
-  //         const remaining = reviews.filter((review) => review._id !== id);
-  //         setReviews(remaining);
-  //         toast.success("Your review deleted successfully");
-  //       }
-  //     });
-  // };
-
   // Get my reviews
   useEffect(() => {
     fetch(`http://localhost:5000/reviews?email=${user?.email}`)

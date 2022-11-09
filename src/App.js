@@ -8,7 +8,7 @@ function App() {
       <RouterProvider router={router} />
       <Toaster
         toastOptions={{
-          duration: 2500,
+          duration: 2250,
         }}
       />
     </div>
