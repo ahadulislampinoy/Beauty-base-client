@@ -82,22 +82,25 @@ const Review = ({ id }) => {
         </p>
         <div className="grid grid-cols-1 gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
           {reviews.map((review) => (
-            <div class="w-full max-w-md px-8 py-4 mt-16 bg-white rounded-lg shadow-lg shadow-pink-200">
-              <div class="flex justify-center -mt-16 md:justify-end">
+            <div
+              key={review._id}
+              className="w-full max-w-md px-8 py-4 mt-16 bg-white rounded-lg shadow-lg shadow-pink-200"
+            >
+              <div className="flex justify-center -mt-16 md:justify-end">
                 <img
-                  class="object-cover w-20 h-20 border-2 border-pink-300 rounded-full "
+                  className="object-cover w-20 h-20 border-2 border-pink-300 rounded-full "
                   alt="Testimonial avatar"
                   src={review.userImg}
                 />
               </div>
 
-              <h2 class="mt-2 text-2xl font-semibold text-gray-800  md:mt-0">
+              <h2 className="mt-2 text-2xl font-semibold text-gray-800  md:mt-0">
                 {review.username}
               </h2>
 
-              <p class="mt-2 text-gray-600">{review.feedback}</p>
+              <p className="mt-2 text-gray-600">{review.feedback}</p>
 
-              <div class="flex justify-end mt-4"></div>
+              <div className="flex justify-end mt-4"></div>
             </div>
           ))}
         </div>
