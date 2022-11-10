@@ -7,13 +7,18 @@ const MyReviews = () => {
   useTitle("My reviews");
   const { user } = useContext(AuthContext);
   const [reviews, setReviews] = useState([]);
+  const [reviewDependency, setReviewDependency] = useState(true);
 
   // Get my reviews
   useEffect(() => {
-    fetch(`https://beauty-base-server.vercel.app/reviews?email=${user?.email}`)
+    fetch(`http://localhost:5000/reviews?email=${user?.email}`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("Beauty-base")}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => setReviews(data));
-  }, [user?.email, reviews]);
+  }, [user?.email, reviewDependency]);
 
   return (
     <div>
@@ -30,7 +35,12 @@ const MyReviews = () => {
           ) : (
             <>
               {reviews.map((review) => (
-                <MyReviewCards key={review._id} review={review} />
+                <MyReviewCards
+                  key={review._id}
+                  review={review}
+                  reviewDependency={reviewDependency}
+                  setReviewDependency={setReviewDependency}
+                />
               ))}
             </>
           )}

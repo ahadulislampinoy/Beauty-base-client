@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthProvider";
 import useTitle from "../../hooks/useTitle";
+import { AuthToken } from "./AuthToken";
 
 const Login = () => {
   useTitle("Login");
@@ -20,10 +21,13 @@ const Login = () => {
 
     userLogIn(email, password)
       .then((result) => {
+        const user = result.user;
         toast.success("Login successful");
         form.reset();
         setError("");
         navigate(from, { replace: true });
+        // Jwt
+        AuthToken(user);
       })
       .catch((err) => {
         setError(err.message);

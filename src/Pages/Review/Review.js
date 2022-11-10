@@ -6,6 +6,7 @@ import { AuthContext } from "../../Contexts/AuthProvider";
 const Review = ({ id }) => {
   const { user } = useContext(AuthContext);
   const [reviews, setReviews] = useState([]);
+  const [reviewDependency, setReviewDependency] = useState(true);
 
   const handleFeedback = (e) => {
     e.preventDefault();
@@ -15,10 +16,11 @@ const Review = ({ id }) => {
       username: user?.displayName,
       userImg: user?.photoURL,
       serviceId: id,
+      date: new Date(),
       feedback,
     };
     // Adding data to database
-    fetch(`https://beauty-base-server.vercel.app/reviews`, {
+    fetch(`http://localhost:5000/reviews`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(review),
@@ -27,16 +29,19 @@ const Review = ({ id }) => {
       .then((data) => {
         if (data.insertedId) {
           e.target.reset();
-          return toast.success("Thank your for feedback");
+          setReviewDependency(!reviewDependency);
+          return toast.success("Thanks your for feedback");
         }
       });
   };
 
   useEffect(() => {
-    fetch(`https://beauty-base-server.vercel.app/reviews?serviceId=${id}`)
+    fetch(`http://localhost:5000/reviews?serviceId=${id}`)
       .then((response) => response.json())
-      .then((data) => setReviews(data));
-  }, [id, reviews]);
+      .then((data) => {
+        setReviews(data);
+      });
+  }, [id, reviewDependency]);
 
   return (
     <div>
@@ -94,7 +99,7 @@ const Review = ({ id }) => {
               <div className="flex justify-center -mt-16 md:justify-end">
                 <img
                   className="object-cover w-20 h-20 border-2 border-pink-300 rounded-full "
-                  alt="Testimonial avatar"
+                  alt="Reviewer avatar"
                   src={review.userImg}
                 />
               </div>

@@ -3,14 +3,14 @@ import toast from "react-hot-toast";
 import DeleteModal from "./DeleteModal";
 import UpdateModal from "./UpdateModal";
 
-const MyReviewCards = ({ review }) => {
+const MyReviewCards = ({ review, reviewDependency, setReviewDependency }) => {
   const [service, setService] = useState({});
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   // Reviewed services data
   useEffect(() => {
-    fetch(`https://beauty-base-server.vercel.app/services/${review.serviceId}`)
+    fetch(`http://localhost:5000/services/${review.serviceId}`)
       .then((response) => response.json())
       .then((data) => setService(data));
   }, [review.serviceId]);
@@ -19,28 +19,33 @@ const MyReviewCards = ({ review }) => {
   const handleUpdateFeedback = (e) => {
     e.preventDefault();
     const feedback = e.target.feedback.value;
-    fetch(`https://beauty-base-server.vercel.app/reviews/${review._id}`, {
+    fetch(`http://localhost:5000/reviews/${review._id}`, {
       method: "PATCH",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ feedback }),
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
-          toast.success("Your feedback updated successfully");
           setShowUpdateModal(false);
+          setReviewDependency(!reviewDependency);
+          toast.success("Your feedback updated successfully");
         }
       });
   };
 
   //Delete review
   const hanldleDelete = () => {
-    fetch(`https://beauty-base-server.vercel.app/reviews/${review._id}`, {
+    fetch(`http://localhost:5000/reviews/${review._id}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.deletedCount > 0) {
+          setShowDeleteModal(false);
+          setReviewDependency(!reviewDependency);
           toast.success("Review deleted successfully");
         }
       });
