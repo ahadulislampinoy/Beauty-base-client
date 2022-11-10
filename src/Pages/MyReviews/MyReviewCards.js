@@ -23,6 +23,7 @@ const MyReviewCards = ({ review, reviewDependency, setReviewDependency }) => {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("Beauty-base")}`,
       },
       body: JSON.stringify({ feedback }),
     })
@@ -40,6 +41,9 @@ const MyReviewCards = ({ review, reviewDependency, setReviewDependency }) => {
   const hanldleDelete = () => {
     fetch(`http://localhost:5000/myreviews/${review._id}`, {
       method: "DELETE",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("Beauty-base")}`,
+      },
     })
       .then((response) => response.json())
       .then((data) => {

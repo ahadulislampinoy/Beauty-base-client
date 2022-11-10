@@ -7,17 +7,12 @@ const Footer = () => {
     <div className="px-8 lg:px-14 pt-16 pb-6 mx-auto w-full bg-gray-50">
       <div className="grid gap-10 row-gap-6 mb-8 sm:grid-cols-2 lg:grid-cols-4">
         <div className="sm:col-span-2">
-          <Link
-            href="/"
-            aria-label="Go home"
-            title="Company"
-            className="inline-flex items-center"
-          >
+          <div className="inline-flex items-center">
             <img src={logo} alt="" className="w-1/12" />
             <span className="ml-2 text-xl font-bold tracking-wide text-gray-900">
               Beauty Base
             </span>
-          </Link>
+          </div>
           <div className="mt-6 lg:max-w-sm">
             <p className="text-sm text-gray-800">
               Do beauty services your way at Beauty Base. Discover new looks,

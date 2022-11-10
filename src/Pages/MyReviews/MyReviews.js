@@ -17,7 +17,10 @@ const MyReviews = () => {
       },
     })
       .then((response) => response.json())
-      .then((data) => setReviews(data));
+      .then((data) => {
+        console.log(data);
+        setReviews(data);
+      });
   }, [user?.email, reviewDependency]);
 
   return (

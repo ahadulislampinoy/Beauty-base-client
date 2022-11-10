@@ -3,7 +3,6 @@ import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthProvider";
 import useTitle from "../../hooks/useTitle";
-import { AuthToken } from "./AuthToken";
 
 const Login = () => {
   useTitle("Login");
@@ -25,9 +24,21 @@ const Login = () => {
         toast.success("Login successful");
         form.reset();
         setError("");
-        navigate(from, { replace: true });
         // Jwt
-        AuthToken(user);
+        const userEmail = {
+          email: user.email,
+        };
+        fetch(`http://localhost:5000/jwt`, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(userEmail),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            localStorage.setItem("Beauty-base", data.token);
+            navigate(from, { replace: true });
+          });
+        // Jwt end
       })
       .catch((err) => {
         setError(err.message);

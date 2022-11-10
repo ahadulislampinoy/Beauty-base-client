@@ -14,6 +14,7 @@ const Header = () => {
     userSignOut()
       .then((result) => {
         toast.success("Logout successful");
+        localStorage.removeItem("Beauty-base");
       })
       .catch((err) => {
         toast.error(err.message);
