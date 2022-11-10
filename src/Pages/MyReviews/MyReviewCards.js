@@ -19,7 +19,7 @@ const MyReviewCards = ({ review, reviewDependency, setReviewDependency }) => {
   const handleUpdateFeedback = (e) => {
     e.preventDefault();
     const feedback = e.target.feedback.value;
-    fetch(`http://localhost:5000/reviews/${review._id}`, {
+    fetch(`http://localhost:5000/myreviews/${review._id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -38,7 +38,7 @@ const MyReviewCards = ({ review, reviewDependency, setReviewDependency }) => {
 
   //Delete review
   const hanldleDelete = () => {
-    fetch(`http://localhost:5000/reviews/${review._id}`, {
+    fetch(`http://localhost:5000/myreviews/${review._id}`, {
       method: "DELETE",
     })
       .then((response) => response.json())

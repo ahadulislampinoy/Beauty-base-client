@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import reviewrDefaultImg from "../../assets/reviewrProfile.png";
 import { AuthContext } from "../../Contexts/AuthProvider";
 
 const Review = ({ id }) => {
@@ -20,7 +21,7 @@ const Review = ({ id }) => {
       feedback,
     };
     // Adding data to database
-    fetch(`http://localhost:5000/reviews`, {
+    fetch(`http://localhost:5000/myreviews`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(review),
@@ -36,7 +37,7 @@ const Review = ({ id }) => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews?serviceId=${id}`)
+    fetch(`http://localhost:5000/serviceReviews?serviceId=${id}`)
       .then((response) => response.json())
       .then((data) => {
         setReviews(data);
@@ -100,7 +101,7 @@ const Review = ({ id }) => {
                 <img
                   className="object-cover w-20 h-20 border-2 border-pink-300 rounded-full "
                   alt="Reviewer avatar"
-                  src={review.userImg}
+                  src={review.userImg ? review.userImg : reviewrDefaultImg}
                 />
               </div>
 

@@ -11,7 +11,7 @@ const MyReviews = () => {
 
   // Get my reviews
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews?email=${user?.email}`, {
+    fetch(`http://localhost:5000/myreviews?email=${user?.email}`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("Beauty-base")}`,
       },
