@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-import reviewrDefaultImg from "../../assets/reviewrProfile.png";
+import reviewrDefaultImg from "../../assets/reviewerDefaultImg.jpg";
 import { AuthContext } from "../../Contexts/AuthProvider";
 
 const Review = ({ id }) => {
@@ -21,7 +21,7 @@ const Review = ({ id }) => {
       feedback,
     };
     // Adding data to database
-    fetch(`http://localhost:5000/myreviews`, {
+    fetch(`https://beauty-base-server.vercel.app/myreviews`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(review),
@@ -37,7 +37,9 @@ const Review = ({ id }) => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/serviceReviews?serviceId=${id}`)
+    fetch(
+      `https://beauty-base-server.vercel.app/serviceReviews?serviceId=${id}`
+    )
       .then((response) => response.json())
       .then((data) => {
         setReviews(data);
@@ -63,7 +65,7 @@ const Review = ({ id }) => {
           <form
             onSubmit={handleFeedback}
             onClick={() =>
-              user?.email ? "" : toast.error("To add review, login first")
+              user?.email ? "" : toast.error("To add review, login required")
             }
           >
             <label className="sr-only" htmlFor="feedback">

@@ -10,7 +10,7 @@ const MyReviewCards = ({ review, reviewDependency, setReviewDependency }) => {
 
   // Reviewed services data
   useEffect(() => {
-    fetch(`http://localhost:5000/services/${review.serviceId}`)
+    fetch(`https://beauty-base-server.vercel.app/services/${review.serviceId}`)
       .then((response) => response.json())
       .then((data) => setService(data));
   }, [review.serviceId]);
@@ -19,7 +19,7 @@ const MyReviewCards = ({ review, reviewDependency, setReviewDependency }) => {
   const handleUpdateFeedback = (e) => {
     e.preventDefault();
     const feedback = e.target.feedback.value;
-    fetch(`http://localhost:5000/myreviews/${review._id}`, {
+    fetch(`https://beauty-base-server.vercel.app/myreviews/${review._id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -39,7 +39,7 @@ const MyReviewCards = ({ review, reviewDependency, setReviewDependency }) => {
 
   //Delete review
   const hanldleDelete = () => {
-    fetch(`http://localhost:5000/myreviews/${review._id}`, {
+    fetch(`https://beauty-base-server.vercel.app/myreviews/${review._id}`, {
       method: "DELETE",
       headers: {
         authorization: `Bearer ${localStorage.getItem("Beauty-base")}`,

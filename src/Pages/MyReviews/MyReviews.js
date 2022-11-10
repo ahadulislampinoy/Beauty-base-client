@@ -11,14 +11,16 @@ const MyReviews = () => {
 
   // Get my reviews
   useEffect(() => {
-    fetch(`http://localhost:5000/myreviews?email=${user?.email}`, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("Beauty-base")}`,
-      },
-    })
+    fetch(
+      `https://beauty-base-server.vercel.app/myreviews?email=${user?.email}`,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("Beauty-base")}`,
+        },
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setReviews(data);
       });
   }, [user?.email, reviewDependency]);
