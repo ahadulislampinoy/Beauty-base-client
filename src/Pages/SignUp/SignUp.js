@@ -22,13 +22,28 @@ const SignUp = () => {
     // Create User
     createUser(email, password)
       .then((result) => {
+        const user = result.user;
         // Update user - under Create user
         updateUserProfile(name, photo)
           .then((result) => {
             setError("");
             form.reset();
-            navigate("/");
             console.log("User update successful");
+            // Jwt
+            const userEmail = {
+              email: user.email,
+            };
+            fetch(`http://localhost:5000/jwt`, {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify(userEmail),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                localStorage.setItem("Beauty-base", data.token);
+                navigate("/");
+              });
+            // Jwt end
           })
           .catch((err) => {
             setError(err.message);
@@ -44,9 +59,25 @@ const SignUp = () => {
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then((result) => {
+        const user = result.user;
         setError("");
         navigate("/");
         toast.success("Signup successful");
+        // Jwt
+        const userEmail = {
+          email: user.email,
+        };
+        fetch(`http://localhost:5000/jwt`, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(userEmail),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            localStorage.setItem("Beauty-base", data.token);
+            navigate("/");
+          });
+        // Jwt end
       })
       .catch((err) => {
         setError(err.message);

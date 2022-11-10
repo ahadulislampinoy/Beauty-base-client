@@ -10,7 +10,7 @@ const AllServices = () => {
   const [services, setServices] = useState([]);
 
   useEffect(() => {
-    fetch(`https://beauty-base-server.vercel.app/services`)
+    fetch(`http://localhost:5000/services`)
       .then((response) => response.json())
       .then((data) => setServices(data));
   }, []);

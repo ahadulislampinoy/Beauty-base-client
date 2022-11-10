@@ -21,7 +21,7 @@ const Review = ({ id }) => {
       feedback,
     };
     // Adding data to database
-    fetch(`https://beauty-base-server.vercel.app/myreviews`, {
+    fetch(`http://localhost:5000/myreviews`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(review),
@@ -37,9 +37,7 @@ const Review = ({ id }) => {
   };
 
   useEffect(() => {
-    fetch(
-      `https://beauty-base-server.vercel.app/serviceReviews?serviceId=${id}`
-    )
+    fetch(`http://localhost:5000/serviceReviews?serviceId=${id}`)
       .then((response) => response.json())
       .then((data) => {
         setReviews(data);
