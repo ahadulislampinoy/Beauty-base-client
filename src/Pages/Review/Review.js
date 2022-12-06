@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
@@ -17,33 +18,27 @@ const Review = ({ id }) => {
       username: user?.displayName,
       userImg: user?.photoURL,
       serviceId: id,
+
       date: new Date(),
       feedback,
     };
     // Adding data to database
-    fetch(`https://beauty-base-server.vercel.app/myreviews`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(review),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.insertedId) {
+    axios
+      .post(`https://beauty-base-server.vercel.app/myreviews`, review)
+      .then((res) => {
+        if (res.data.insertedId) {
           e.target.reset();
           setReviewDependency(!reviewDependency);
           return toast.success("Thanks your for feedback");
         }
       });
   };
-
   useEffect(() => {
-    fetch(
-      `https://beauty-base-server.vercel.app/serviceReviews?serviceId=${id}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setReviews(data);
-      });
+    axios
+      .get(
+        `https://beauty-base-server.vercel.app/serviceReviews?serviceId=${id}`
+      )
+      .then((res) => setReviews(res.data));
   }, [id, reviewDependency]);
 
   return (

@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { MdArrowRight } from "react-icons/md";
 import { PhotoProvider, PhotoView } from "react-photo-view";
@@ -10,10 +11,21 @@ const AllServices = () => {
   const [services, setServices] = useState([]);
 
   useEffect(() => {
-    fetch(`https://beauty-base-server.vercel.app/services`)
-      .then((response) => response.json())
-      .then((data) => setServices(data));
+    axios
+      .get(`https://beauty-base-server.vercel.app/services`)
+      .then((res) => setServices(res.data));
   }, []);
+
+  if (services.length === 0) {
+    return (
+      <div className="flex items-center justify-center space-x-2 h-screen">
+        <div className="w-4 h-4 rounded-full animate-pulse bg-pink-600"></div>
+        <div className="w-4 h-4 rounded-full animate-pulse bg-pink-600"></div>
+        <div className="w-4 h-4 rounded-full animate-pulse bg-pink-600"></div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 p-6 sm:p-10 py-8">

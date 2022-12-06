@@ -8,11 +8,14 @@ Hosted in Firebase -> [Beauty Base](https://beauty-base7.web.app/)
 
 ## Features
 
+- A MERN Stack service review application.
+- Users can add, edit, or delete their reviews.
+- User authentication by Firebase
+- Identify authenticated users by Jwt
 - Book different makeup services
 - Give feedback
 - Read previous buyers feedback
 - Can add new services
-- Google & Email Authentication
 - Easy to navigate
 - Responsive
 

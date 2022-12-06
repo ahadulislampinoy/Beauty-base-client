@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import toast from "react-hot-toast";
 import { TbArrowRotaryLastRight } from "react-icons/tb";
@@ -17,14 +18,10 @@ const AddService = () => {
     };
 
     // Adding new service in database
-    fetch(`https://beauty-base-server.vercel.app/services`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(serviceDetails),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.insertedId) {
+    axios
+      .post(`https://beauty-base-server.vercel.app/services`, serviceDetails)
+      .then((res) => {
+        if (res.data.insertedId) {
           e.target.reset();
           return toast.success("Service added successfully");
         }
