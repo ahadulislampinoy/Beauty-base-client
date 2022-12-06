@@ -1,6 +1,6 @@
 # Beauty Base
 
-A booking platform, Where you can book different makeup services for your parties, functions, etc
+A service review platform, Where you can give reviews for different services you have experienced.
 
 ## Live Link
 
@@ -8,7 +8,6 @@ Hosted in Firebase -> [Beauty Base](https://beauty-base7.web.app/)
 
 ## Features
 
-- A MERN Stack service review application.
 - Users can add, edit, or delete their reviews.
 - User authentication by Firebase
 - Identify authenticated users by Jwt
@@ -30,7 +29,8 @@ Hosted in Firebase -> [Beauty Base](https://beauty-base7.web.app/)
 
 - React
 - React Router
-- Mongodb
+- Node
 - Express
+- Mongodb
 - Firebase
 - TailwindCSS
