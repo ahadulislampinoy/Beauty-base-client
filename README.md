@@ -1,6 +1,6 @@
 # Beauty Base
 
-A booking platform, Where you can book different makeup services for your parties, functions, etc
+A service review platform, Where you can give reviews for different services you have experienced, etc
 
 ## Live Link
 
