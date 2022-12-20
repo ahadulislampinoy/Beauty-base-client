@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { AuthContext } from "../../Contexts/AuthProvider";
 import useTitle from "../../hooks/useTitle";
 import MyReviewCards from "./MyReviewCards";
 
 const MyReviews = () => {
   useTitle("My reviews");
-  const { user } = useContext(AuthContext);
+  const { user, userSignOut } = useContext(AuthContext);
   const [reviews, setReviews] = useState([]);
   const [reviewDependency, setReviewDependency] = useState(true);
 
@@ -21,9 +22,13 @@ const MyReviews = () => {
     )
       .then((response) => response.json())
       .then((data) => {
+        if (data.message === "Unauthorized access") {
+          toast.error("Unauthorized access, You have been logged out!");
+          return userSignOut();
+        }
         setReviews(data);
       });
-  }, [user?.email, reviewDependency]);
+  }, [user?.email, reviewDependency, userSignOut]);
 
   return (
     <div>

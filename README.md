@@ -27,10 +27,11 @@ Hosted in Firebase -> [Beauty Base](https://beauty-base7.web.app/)
 
 ## Tech Stack
 
+- TailwindCSS
 - React
 - React Router
 - Node
 - Express
 - Mongodb
 - Firebase
-- TailwindCSS
+- Vercel
