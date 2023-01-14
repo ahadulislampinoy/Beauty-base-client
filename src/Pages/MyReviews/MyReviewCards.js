@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { FiStar } from "react-icons/fi";
 import DeleteModal from "./DeleteModal";
 import UpdateModal from "./UpdateModal";
 
@@ -7,6 +8,7 @@ const MyReviewCards = ({ review, reviewDependency, setReviewDependency }) => {
   const [service, setService] = useState({});
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [rating, setRating] = useState(review?.rating);
 
   // Reviewed services data
   useEffect(() => {
@@ -18,14 +20,18 @@ const MyReviewCards = ({ review, reviewDependency, setReviewDependency }) => {
   // Update review data
   const handleUpdateFeedback = (e) => {
     e.preventDefault();
-    const feedback = e.target.feedback.value;
+    const updatedData = {
+      feedback: e.target.feedback.value,
+      rating,
+    };
+
     fetch(`https://beauty-base-server.vercel.app/myreviews/${review._id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${localStorage.getItem("Beauty-base")}`,
       },
-      body: JSON.stringify({ feedback }),
+      body: JSON.stringify(updatedData),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -66,6 +72,9 @@ const MyReviewCards = ({ review, reviewDependency, setReviewDependency }) => {
       </div>
       <div className="flex-auto p-6">
         <h1 className="flex-auto text-2xl font-semibold ">{service.name}</h1>
+        <div className="text-pink-500/90 text-xl pt-2 font-bold">
+          <FiStar className="inline-block mb-1" /> {review.rating}
+        </div>
         <p className="lg:text-lg my-2 text-gray-700 leading-7">
           {review.feedback}
         </p>
@@ -82,6 +91,9 @@ const MyReviewCards = ({ review, reviewDependency, setReviewDependency }) => {
             showUpdateModal={showUpdateModal}
             setShowUpdateModal={setShowUpdateModal}
             handleUpdateFeedback={handleUpdateFeedback}
+            review={review}
+            rating={rating}
+            setRating={setRating}
           />
           <button
             onClick={() => setShowDeleteModal(true)}

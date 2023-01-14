@@ -2,6 +2,8 @@
 
 A service review platform, Where you can give reviews for different services you have experienced.
 
+<img src="./src/assets/Home.png" alt="Home - Beauty base">
+
 ## Live Link
 
 Hosted in Firebase -> [Beauty Base](https://beauty-base7.web.app/)

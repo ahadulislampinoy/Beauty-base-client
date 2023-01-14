@@ -1,25 +1,31 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { FiStar } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import reviewrDefaultImg from "../../assets/reviewerDefaultImg.jpg";
 import { AuthContext } from "../../Contexts/AuthProvider";
+import Rating from "./Rating";
 
 const Review = ({ id }) => {
   const { user } = useContext(AuthContext);
   const [reviews, setReviews] = useState([]);
   const [reviewDependency, setReviewDependency] = useState(true);
+  const [rating, setRating] = useState(0);
 
   const handleFeedback = (e) => {
     e.preventDefault();
     const feedback = e.target.feedback.value;
+    if (!rating) {
+      return toast.error("Please rate your experience");
+    }
     const review = {
       email: user?.email,
       username: user?.displayName,
       userImg: user?.photoURL,
       serviceId: id,
-
       date: new Date(),
+      rating,
       feedback,
     };
     // Adding data to database
@@ -54,13 +60,14 @@ const Review = ({ id }) => {
               </Link>
             )}
           </h1>
-          <p className="mt-3 mb-6 font-semibold text-gray-700">
-            {user?.email ? "How was your experience?" : ""}
+          <p className="mt-3 mb-5 font-semibold text-gray-700">
+            {user?.email && "How was your experience?"}
           </p>
+          {user?.email && <Rating rating={rating} setRating={setRating} />}
           <form
             onSubmit={handleFeedback}
             onClick={() =>
-              user?.email ? "" : toast.error("To add review, login required")
+              !user?.email && toast.error("To add review, login required")
             }
           >
             <label className="sr-only" htmlFor="feedback">
@@ -102,8 +109,11 @@ const Review = ({ id }) => {
                 />
               </div>
 
-              <h2 className="mt-2 text-2xl font-semibold text-gray-800  md:mt-0">
+              <h2 className="mt-2 text-2xl font-semibold text-gray-800 flex md:mt-0">
                 {review.username}
+                <span className="text-pink-500/90 text-lg py-1 px-3">
+                  <FiStar className="inline-block mb-1" /> {review.rating}
+                </span>
               </h2>
 
               <p className="mt-2 text-gray-600">{review.feedback}</p>

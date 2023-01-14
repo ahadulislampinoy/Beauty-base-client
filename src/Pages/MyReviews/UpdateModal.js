@@ -1,18 +1,25 @@
 import React from "react";
+import Rating from "../Review/Rating";
 
 const UpdateModal = ({
   showUpdateModal,
   setShowUpdateModal,
   handleUpdateFeedback,
+  review,
+  rating,
+  setRating,
 }) => {
   return (
     <>
-      {showUpdateModal ? (
+      {showUpdateModal && (
         <>
           <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-black/40">
             <div className="relative w-full max-w-md px-4 h-auto">
               <div className="bg-gray-50 rounded-lg shadow relative">
-                <div className="flex justify-end p-2">
+                <div className="flex justify-between p-6 lg:pl-8">
+                  <h3 className="text-xl font-medium text-gray-900">
+                    Edit review
+                  </h3>
                   <button
                     onClick={() => setShowUpdateModal(false)}
                     type="button"
@@ -37,13 +44,11 @@ const UpdateModal = ({
                   className="space-y-6 px-6 lg:px-8 pb-4 sm:pb-6"
                   onSubmit={handleUpdateFeedback}
                 >
-                  <h3 className="text-xl font-medium text-gray-900">
-                    Edit review
-                  </h3>
+                  <Rating rating={rating} setRating={setRating} />
                   <div>
                     <label
                       htmlFor="password"
-                      className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
+                      className="text-base font-medium text-gray-900 block mb-2"
                     ></label>
                     <textarea
                       className="w-full rounded-lg bg-gray-50 border border-gray-200 focus:border-pink-400 focus:ring-pink-300 focus:outline-none focus:ring focus:ring-opacity-40 p-3 text-base"
@@ -52,6 +57,7 @@ const UpdateModal = ({
                       required
                       cols="45"
                       rows="8"
+                      defaultValue={review.feedback}
                       style={{ resize: "none" }}
                       id="message"
                     ></textarea>
@@ -67,7 +73,7 @@ const UpdateModal = ({
             </div>
           </div>
         </>
-      ) : null}
+      )}
     </>
   );
 };
