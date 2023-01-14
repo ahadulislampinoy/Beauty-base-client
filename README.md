@@ -14,8 +14,8 @@ Hosted in Firebase -> [Beauty Base](https://beauty-base7.web.app/)
 - User authentication by Firebase
 - Identify authenticated users by Jwt
 - Book different makeup services
-- Give feedback
-- Read previous buyers feedback
+- Give feedback with rating
+- See previous buyers rating and feedback
 - Can add new services
 - Easy to navigate
 - Responsive
@@ -26,6 +26,7 @@ Hosted in Firebase -> [Beauty Base](https://beauty-base7.web.app/)
 - [React icons](https://react-icons.github.io/react-icons/)
 - [React-hot-toast](https://react-hot-toast.com/)
 - [React-photo-view](https://react-photo-view.vercel.app/en-US)
+- [Axios](https://axios-http.com/)
 
 ## Tech Stack
 
