@@ -49,6 +49,7 @@ const AuthProvider = ({ children }) => {
   // Sign out
   const userSignOut = () => {
     setLoading(true);
+    localStorage.removeItem("Beauty-base");
     return signOut(auth);
   };
 

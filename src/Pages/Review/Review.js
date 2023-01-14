@@ -34,6 +34,7 @@ const Review = ({ id }) => {
       .then((res) => {
         if (res.data.insertedId) {
           e.target.reset();
+          setRating(0);
           setReviewDependency(!reviewDependency);
           return toast.success("Thanks your for feedback");
         }
@@ -44,7 +45,9 @@ const Review = ({ id }) => {
       .get(
         `https://beauty-base-server.vercel.app/serviceReviews?serviceId=${id}`
       )
-      .then((res) => setReviews(res.data));
+      .then((res) => {
+        setReviews(res.data);
+      });
   }, [id, reviewDependency]);
 
   return (
